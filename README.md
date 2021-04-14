@@ -2,7 +2,7 @@
 a simple script for ssh to Aliyun ECS nodes based on Name and Instance ID, with tab auto-completion
 
 ```bash
-$ jump.sh dev-limestone- # pressing TAB
+$ jump-go.sh dev-limestone- # pressing TAB
 dev-oss-web-wz9d7qqtzw8    dev-oss-web-wz9d7qqtzw9   dev-oss-web-wz9d7qqtzw7 
 ```
 
