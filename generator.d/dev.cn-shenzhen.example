@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#only change ALICLOUD_PROFILE variables
+ALICLOUD_PROFILE="dev"
+BIN_PATH="$HOME/.jumpgohost/bin"
+CACHE_DIR="$HOME/.jumpgohost/cache"
+CACHE_TTL=10
+OUTPUT_NAME="$ALICLOUD_PROFILE.$ALICLOUD_REGION"
+
+if [ $(find $CACHE_DIR -name $OUTPUT_NAME.ecs.json -mmin -$CACHE_TTL | wc -l) -ne 0 ]; then
+  exit 0
+fi
+
+$BIN_PATH/jump $CACHE_DIR/$OUTPUT_NAME.ecs.json
+
+cat $CACHE_DIR/$OUTPUT_NAME.ecs.json | \
+  jq -r '.|[.name,.public_ip_address[],.ssh_user] | @tsv' \
+  > $CACHE_DIR/$OUTPUT_NAME.ecs.findhost.tsv
